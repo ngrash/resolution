@@ -31,7 +31,7 @@ end
 
 function menu:draw()
 	love.graphics.setFont(fonts.title)
-	love.graphics.print("Resolution")
+	love.graphics.print("Resolution", 10, 0)
 
 	local buttonOffsetY = self:getButtonOffsetY()
 
