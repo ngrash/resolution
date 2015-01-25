@@ -1,3 +1,5 @@
+require 'fonts'
+require 'clock'
 require 'states'
 
 function love.load()
