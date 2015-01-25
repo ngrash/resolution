@@ -11,11 +11,13 @@ function menu:enter()
 end
 
 function menu:update()
-	for index, button in pairs(buttons) do
-		buttonX = (windowWidth / 2) - (self.buttonWidth / 2)
-		buttonY = (self.buttonHeight * index) + (self.buttonMargin) * index
+	local buttonOffsetY = self:getButtonOffsetY()
 
-		mouseX, mouseY = love.mouse.getPosition()
+	for index, button in pairs(buttons) do
+		local buttonX = (windowWidth / 2) - (self.buttonWidth / 2)
+		local buttonY = buttonOffsetY + (self.buttonHeight * (index - 1)) + (self.buttonMargin * (index - 1))
+
+		local mouseX, mouseY = love.mouse.getPosition()
 
 		if mouseX > buttonX and mouseX < buttonX + self.buttonWidth and
 		   mouseY > buttonY and mouseY < buttonY + self.buttonHeight then
@@ -31,10 +33,12 @@ function menu:draw()
 	love.graphics.setFont(fonts.title)
 	love.graphics.print("Resolution")
 
+	local buttonOffsetY = self:getButtonOffsetY()
+
 	love.graphics.setFont(fonts.button)
 	for index, button in pairs(buttons) do
-		buttonX = (windowWidth / 2) - (self.buttonWidth / 2)
-		buttonY = (self.buttonHeight * index) + (self.buttonMargin) * index
+		local buttonX = (windowWidth / 2) - (self.buttonWidth / 2)
+		local buttonY = buttonOffsetY + (self.buttonHeight * (index - 1)) + (self.buttonMargin * (index - 1))
 
 		if button.selected then
 			love.graphics.setColor(0, 200, 100)
@@ -53,26 +57,41 @@ function menu:draw()
 	end
 end
 
+function menu:keypressed(key)
+	if key == "escape" then
+		love.event.push("quit")
+	end
+end
+
 function menu:mousepressed(mouseX, mouseY)
+	local buttonOffsetY = self:getButtonOffsetY()
+
 	for index, button in pairs(buttons) do
-		buttonX = (windowWidth / 2) - (self.buttonWidth / 2)
-		buttonY = (self.buttonHeight * index) + (self.buttonMargin) * index
+		local buttonX = (windowWidth / 2) - (self.buttonWidth / 2)
+		local buttonY = buttonOffsetY + (self.buttonHeight * (index - 1)) + (self.buttonMargin * (index - 1))
 
 		if mouseX > buttonX and mouseX < buttonX + self.buttonWidth and
 		   mouseY > buttonY and mouseY < buttonY + self.buttonHeight then
 			
 			button.selected = true
-	   else
-	   		button.selected = false
-	   end
+		else
+			button.selected = false
+		end
 	end
 end
 
 function menu:mousereleased()
 	for index, button in pairs(buttons) do
 		if button.selected then
+			button.selected = false
 			game.timeRequired = button.timeRequired
 			switchState("game")
 		end
 	end
+end
+
+function menu:getButtonOffsetY()
+	local groupHeight = (self.buttonHeight * #buttons) + (self.buttonMargin * (#buttons - 1))
+	local buttonOffsetY = (love.graphics.getHeight() * 0.5) - (groupHeight * 0.5)
+	return buttonOffsetY
 end
