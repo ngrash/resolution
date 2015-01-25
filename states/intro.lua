@@ -10,9 +10,17 @@ intro = {
 	time = 86400 - 5,
 	party = false,
 	lines = {
-		{ text = "It's new year's eve when you realize" },
-		{ text = "that you did not keep your last years" },
-		{ text = "resolutions at all. You are still lazy," }
+		"As the rockets rise on new year's eve",
+		"you become clear that you have to change.",
+		"",
+		"You want to clean up your room, eat healthy,",
+		"meet friends and become a better person.",
+		"",
+		"You know what held you back last year.",
+		"You know what you have to do.",
+		"You want to ...",
+		"",
+		"Step away from your computer."
 	},
 	timeBetweenLines = 1.5,
 	timeTillNextLine = 1,
@@ -60,10 +68,6 @@ function intro:update(timeElapsed)
 			self.delays[index] = self.delays[index] - timeElapsed
 			self.particle_systems[index]:update(timeElapsed)
 		end
-
-		for _, line in pairs(self.lines) do
-
-		end
 	end
 end
 
@@ -75,10 +79,10 @@ function intro:draw()
 	for line = 1, self.displayedLines do
 		love.graphics.setFont(fonts.text)
 
-		local text = self.lines[line].text
+		local text = self.lines[line]
 		local width = fonts.text:getWidth(text)
 
-		love.graphics.print(self.lines[line].text, (love.graphics.getWidth() * 0.5) - (width * 0.5), fonts.text:getHeight() * line)
+		love.graphics.print(text, (love.graphics.getWidth() * 0.5) - (width * 0.5), fonts.text:getHeight() * line)
 	end
 
 	love.graphics.setFont(fonts.alarmClock)
