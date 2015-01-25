@@ -1,4 +1,4 @@
-menu = { buttonWidth = 100, buttonHeight = 30, buttonMargin = 10 }
+menu = { buttonWidth = 200, buttonHeight = 70, buttonMargin = 10 }
 
 buttons = {
 	{ text = "Beginner", timeRequired = 15 * 60 },
@@ -8,7 +8,6 @@ buttons = {
 
 function menu:enter()
 	love.mouse.setVisible(true)
-	love.graphics.setFont(fonts.default)
 end
 
 function menu:update()
@@ -29,8 +28,10 @@ function menu:update()
 end
 
 function menu:draw()
-	love.graphics.print("Resolution RPG")
+	love.graphics.setFont(fonts.title)
+	love.graphics.print("Resolution")
 
+	love.graphics.setFont(fonts.button)
 	for index, button in pairs(buttons) do
 		buttonX = (windowWidth / 2) - (self.buttonWidth / 2)
 		buttonY = (self.buttonHeight * index) + (self.buttonMargin) * index
@@ -45,7 +46,10 @@ function menu:draw()
 
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.rectangle("line", buttonX, buttonY, self.buttonWidth, self.buttonHeight)
-		love.graphics.print(button.text, buttonX, buttonY)
+
+		love.graphics.setFont(fonts.button)
+		local buttonTextWidth = fonts.button:getWidth(button.text)
+		love.graphics.print(button.text, (windowWidth * 0.5) - (buttonTextWidth * 0.5), buttonY + (self.buttonHeight * 0.5) - (fonts.button:getHeight() * 0.5))
 	end
 end
 

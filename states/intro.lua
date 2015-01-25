@@ -23,7 +23,7 @@ intro = {
 		"Step away from your computer."
 	},
 	timeBetweenLines = 1.5,
-	timeTillNextLine = 1,
+	timeTillNextLine = 2,
 	displayedLines = 0
 }
 
@@ -46,7 +46,7 @@ function intro:update(timeElapsed)
 		self.party = true
 	end
 
-	if self.party then
+	if self.party and self.time > 0.5 then
 		if self.displayedLines < #self.lines then
 			self.timeTillNextLine = self.timeTillNextLine - timeElapsed
 			if self.timeTillNextLine <= 0 then
