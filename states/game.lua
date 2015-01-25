@@ -1,5 +1,9 @@
 game = { timePlayed = 0, timeRequired = 10 }
 
+function game:enter()
+	love.mouse.setVisible(false)
+end
+
 function game:update(timeElapsed)
 	self.timePlayed = self.timePlayed + timeElapsed
 	if self.timePlayed >= self.timeRequired then
@@ -8,33 +12,12 @@ function game:update(timeElapsed)
 end
 
 function game:draw()
-	love.graphics.print("Now step away from your computer")
 	local timeLeft = self.timeRequired - self.timePlayed
-	local textual = ""
-	if timeLeft > 1800 then
-		textual = math.ceil(timeLeft / 60 / 60)
-		if timeLeft > 3600 then
-			textual = textual.." hours"
-		else
-			textual = textual.." hour"
-		end
-	elseif timeLeft > 10 then
-		textual = math.ceil(timeLeft / 60)
-		if timeLeft > 120 then
-			textual = textual.." minutes"
-		else
-			textual = textual.." minute"
-		end
-	else 
-		textual = math.ceil(timeLeft)
-		if timeLeft > 1 then
-			textual = textual.." seconds"
-		else
-			textual = textual.." second"
-		end
-	end
-
-	love.graphics.print(textual, 0, 20)
+	local textual = secondsToCountdown(timeLeft)
+	local x = (love.graphics.getWidth() * 0.5) - (fonts.countdown:getWidth(textual) * 0.5)
+	local y = (love.graphics.getHeight() * 0.5) - (fonts.countdown:getHeight() * 0.5)
+	love.graphics.setFont(fonts.countdown)
+	love.graphics.print(textual, x, y)
 end
 
 function game:mousepressed()
