@@ -8,7 +8,15 @@ intro = {
 		love.graphics.newImage("assets/blue_pixel.png")
 	},
 	time = 86400 - 5,
-	party = false
+	party = false,
+	lines = {
+		{ text = "It's new year's eve when you realize" },
+		{ text = "that you did not keep your last years" },
+		{ text = "resolutions at all. You are still lazy," }
+	},
+	timeBetweenLines = 1.5,
+	timeTillNextLine = 1,
+	displayedLines = 0
 }
 
 intro.particles_prototype = love.graphics.newParticleSystem(intro.colors[1], 1000)
@@ -27,6 +35,15 @@ function intro:update(timeElapsed)
 	end
 
 	if self.party then
+		if self.displayedLines < #self.lines then
+			self.timeTillNextLine = self.timeTillNextLine - timeElapsed
+			if self.timeTillNextLine <= 0 then
+				self.timeTillNextLine = self.timeBetweenLines
+				self.displayedLines = self.displayedLines + 1
+				self.timeTillNextLine = self.timeBetweenLines
+			end
+		end
+
 		for index = 1, self.number_of_particle_systems do
 			if self.particle_systems[index] == nil then
 				self.particle_systems[index] = self.particles_prototype:clone()
@@ -43,12 +60,25 @@ function intro:update(timeElapsed)
 			self.delays[index] = self.delays[index] - timeElapsed
 			self.particle_systems[index]:update(timeElapsed)
 		end
+
+		for _, line in pairs(self.lines) do
+
+		end
 	end
 end
 
 function intro:draw()
 	for _, particles in pairs(self.particle_systems) do
 		love.graphics.draw(particles)
+	end
+
+	for line = 1, self.displayedLines do
+		love.graphics.setFont(fonts.text)
+
+		local text = self.lines[line].text
+		local width = fonts.text:getWidth(text)
+
+		love.graphics.print(self.lines[line].text, (love.graphics.getWidth() * 0.5) - (width * 0.5), fonts.text:getHeight() * line)
 	end
 
 	love.graphics.setFont(fonts.alarmClock)
