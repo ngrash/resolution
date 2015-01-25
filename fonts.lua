@@ -1,5 +1,5 @@
 fonts = {
-	alarmClock = love.graphics.newFont("assets/alarm clock.ttf", 30),
+	alarmClock = love.graphics.newFont("assets/alarm clock.ttf", 40),
 	text = love.graphics.newFont("assets/BebasNeue.otf", 40),
 	default = love.graphics.getFont(),
 	button = love.graphics.newFont("assets/BebasNeue.otf", 30),

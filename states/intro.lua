@@ -80,19 +80,22 @@ function intro:draw()
 		love.graphics.draw(particles)
 	end
 
+	local linesTotalHeight = fonts.text:getHeight() * #self.lines
+	local lineOffsetY = (love.graphics.getHeight() * 0.5) - (linesTotalHeight * 0.5)
+
 	for line = 1, self.displayedLines do
 		love.graphics.setFont(fonts.text)
 
 		local text = self.lines[line]
 		local width = fonts.text:getWidth(text)
 
-		love.graphics.print(text, (love.graphics.getWidth() * 0.5) - (width * 0.5), fonts.text:getHeight() * line)
+		love.graphics.print(text, (love.graphics.getWidth() * 0.5) - (width * 0.5), lineOffsetY + (fonts.text:getHeight() * (line - 1)))
 	end
 
 	if self:all_lines_displayed() then
 		local text = "Press any key to continue"
 		local x = (love.graphics.getWidth() * 0.5) - (fonts.default:getWidth(text) * 0.5)
-		local y = fonts.text:getHeight() * (#self.lines + 1)
+		local y = lineOffsetY + fonts.text:getHeight() * (#self.lines + 1)
 		love.graphics.setFont(fonts.default)
 		love.graphics.print(text, x, y)
 	end
