@@ -35,6 +35,10 @@ intro.particles_prototype:setEmitterLifetime(0.1)
 intro.particles_prototype:setRadialAcceleration(50, 100)
 intro.particles_prototype:setLinearAcceleration(-100, -100, 100, 100);
 
+function intro:enter()
+	love.mouse.setVisible(false)
+end
+
 function intro:update(timeElapsed)
 	self.time = self.time + timeElapsed
 	if self.time >= 86400 then
@@ -85,6 +89,30 @@ function intro:draw()
 		love.graphics.print(text, (love.graphics.getWidth() * 0.5) - (width * 0.5), fonts.text:getHeight() * line)
 	end
 
+	if self:all_lines_displayed() then
+		local text = "Press any key to continue"
+		local x = (love.graphics.getWidth() * 0.5) - (fonts.default:getWidth(text) * 0.5)
+		local y = fonts.text:getHeight() * (#self.lines + 1)
+		love.graphics.setFont(fonts.default)
+		love.graphics.print(text, x, y)
+	end
+
 	love.graphics.setFont(fonts.alarmClock)
 	love.graphics.print(secondsToClock(self.time))
+end
+
+function intro:keypressed(key)
+	if (key == "escape") or self:all_lines_displayed() then
+		switchState("menu")
+	end
+end
+
+function intro:mousepressed()
+	if self:all_lines_displayed() then
+		switchState("menu")
+	end
+end
+
+function intro:all_lines_displayed()
+	return self.displayedLines == #self.lines
 end

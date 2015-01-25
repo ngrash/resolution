@@ -3,11 +3,13 @@ require 'clock'
 require 'states'
 
 function love.load()
-	-- love.window.setFullscreen(true)
-	love.window.setTitle("Resolution RPG")
+	love.window.setFullscreen(true)
+	love.window.setTitle("Resolution")
 
 	windowWidth = love.window.getWidth()
 	windowHeight = love.window.getHeight()
+
+	switchState("intro")
 end
 
 function love.update(...)

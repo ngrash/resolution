@@ -11,8 +11,10 @@ states["game"] = game
 states["win"] = win
 states["lost"] = lost
 
-currentState = "intro"
-
 function switchState(state)
+	if states[state]["enter"] ~= nil then
+		states[state]:enter()
+	end
+	
 	currentState = state
 end

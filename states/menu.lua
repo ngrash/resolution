@@ -6,6 +6,11 @@ buttons = {
 	{ text = "Expert", timeRequired = 24 * 3600 }
 }
 
+function menu:enter()
+	love.mouse.setVisible(true)
+	love.graphics.setFont(fonts.default)
+end
+
 function menu:update()
 	for index, button in pairs(buttons) do
 		buttonX = (windowWidth / 2) - (self.buttonWidth / 2)
