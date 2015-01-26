@@ -1,9 +1,9 @@
 menu = { buttonWidth = 200, buttonHeight = 70, buttonMargin = 10 }
 
 buttons = {
-	{ text = "Beginner", timeRequired = 15 * 60 },
-	{ text = "Advanced", timeRequired = 1 * 3600 },
-	{ text = "Expert", timeRequired = 24 * 3600 }
+	{ text = "Beginner", mode = "beginner" },
+	{ text = "Advanced", mode = "advanced" },
+	{ text = "Expert", mode = "expert" }
 }
 
 function menu:enter()
@@ -84,7 +84,7 @@ function menu:mousereleased()
 	for index, button in pairs(buttons) do
 		if button.selected then
 			button.selected = false
-			game.timeRequired = button.timeRequired
+			game.mode = button.mode
 			switchState("game")
 		end
 	end
