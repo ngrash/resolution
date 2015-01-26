@@ -9,6 +9,8 @@ intro = {
 	},
 	time = 86400 - 5,
 	party = false,
+	numberOfStars = 50,
+	stars = {},
 	lines = {
 		"As the rockets rise on new year's eve",
 		"you become clear that you have to change.",
@@ -37,6 +39,13 @@ intro.particlesPrototype:setLinearAcceleration(-100, -100, 100, 100);
 
 function intro:enter()
 	love.mouse.setVisible(false)
+
+	for index=1, self.numberOfStars do
+		self.stars[index] = { 
+			x = math.random(love.graphics.getWidth()),
+			y = math.random(love.graphics.getHeight())
+		}
+	end
 end
 
 function intro:update(timeElapsed)
@@ -76,6 +85,10 @@ function intro:update(timeElapsed)
 end
 
 function intro:draw()
+	for _, star in pairs(self.stars) do
+		love.graphics.rectangle("fill", star.x, star.y, 2, 2)
+	end
+
 	for _, particles in pairs(self.particleSystems) do
 		love.graphics.draw(particles)
 	end
