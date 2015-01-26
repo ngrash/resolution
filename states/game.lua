@@ -2,13 +2,14 @@ game = {
 	timePlayed = 0,
 	timeRequired = 0,
 	displayHint = 0,
+	triggerHint = false,
 	modes = {
 		beginner = {
 			timeRequired = 15 * 60,
 			hints = {
 				"have some tee",
 				"clean up your room",
-				"do your laundry"
+				"do your laundry",
 				"take a short walk",
 				"call your mother",
 				"read a newspaper"
@@ -53,6 +54,11 @@ function game:update(timeElapsed)
 	if mX ~= self.mouseX and mX ~= self.mouseX then
 		self.mouseX, self.mouseY = mX, mY
 
+		self.triggerHint = true
+	end
+
+	if self.triggerHint then
+		self.triggerHint = false
 		if self.displayHint <= 0 then
 			-- somehow the randomness is broken and we have to seed it
 			math.randomseed(timeElapsed)
@@ -92,11 +98,15 @@ function game:draw()
 end
 
 function game:mousepressed()
-	switchState("lost")
+	self.triggerHint = true
 end
 
-function game:keypressed()
-	switchState("lost")
+function game:keypressed(key)
+	if key == "escape" then
+		switchState("lost")
+	else
+		self.triggerHint = true
+	end
 end
 
 function game:focus()
