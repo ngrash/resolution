@@ -27,7 +27,9 @@ game = {
 		expert = {
 			timeRequired = 24 * 3600,
 			hints = {
-				"go hiking"
+				"go hiking",
+				"hang out in the park",
+				"meet some old friends"
 			}
 		}
 	}
