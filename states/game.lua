@@ -7,7 +7,7 @@ game = {
 		beginner = {
 			timeRequired = 15 * 60,
 			hints = {
-				"have some tee",
+				"have some tea",
 				"clean up your room",
 				"do your laundry",
 				"take a short walk",
