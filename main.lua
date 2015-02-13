@@ -3,9 +3,19 @@ require 'clock'
 require 'states'
 
 function love.load()
-	love.window.setFullscreen(true)
+	--love.window.setFullscreen(true)
+	
+	-- The first line resize to fullscreen.(if the width and the height are 0, then it become of the screen resolution)
+	-- The second line fix a bug that sometimes appear when doing the first line alone.(You can't draw anything but a background color)
+	-- Source: https://love2d.org/forums/viewtopic.php?f=4&t=32721
+	local flags = { fullscreen = "desktop" }
+	love.window.setMode(0, 0, flags)
+	love.window.setMode(love.graphics.getWidth(),love.graphics.getHeight(), flags)
+	
 	love.window.setTitle("Resolution")
 
+	
+	
 	windowWidth = love.window.getWidth()
 	windowHeight = love.window.getHeight()
 
