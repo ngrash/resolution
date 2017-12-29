@@ -6,7 +6,7 @@ lost = {
 		"",
 		"Press ESC to quit",
 		"",
-		"Press any key to return to the menu" 
+		"Press any key to return to the menu"
 	}
 }
 
@@ -19,7 +19,7 @@ function lost:draw()
 	local textOffsetY = love.graphics.getHeight() * 0.5 - linesTotalHeight * 0.5
 
 	for index, line in pairs(self.text) do
-		love.graphics.print(line, love.window.getWidth() * 0.5 - fonts.text:getWidth(line) * 0.5, textOffsetY + fonts.text:getHeight() * (index - 1))
+		love.graphics.print(line, love.graphics.getWidth() * 0.5 - fonts.text:getWidth(line) * 0.5, textOffsetY + fonts.text:getHeight() * (index - 1))
 	end
 end
 
