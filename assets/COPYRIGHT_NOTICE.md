@@ -3,8 +3,8 @@ Unless otherwise stated all assets are licensed under MIT license.
 
 ## Fonts
 
-The fonts that are used by the game and are therefore part of its distribution
-are not licensed under MIT but freely available for personal use.
+The fonts that are distributed as part of the game are not licensed under MIT
+but are freely available for personal use.
 
 Please bring copyright issues to my attention through the issue tracker here:
 
