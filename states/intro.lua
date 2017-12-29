@@ -1,4 +1,4 @@
-intro = { 
+intro = {
 	numberOfParticleSystems = 7,
 	particleSystems = {},
 	delays = {},
@@ -41,7 +41,7 @@ function intro:enter()
 	love.mouse.setVisible(false)
 
 	for index=1, self.numberOfStars do
-		self.stars[index] = { 
+		self.stars[index] = {
 			x = math.random(love.graphics.getWidth()),
 			y = math.random(love.graphics.getHeight())
 		}
@@ -72,7 +72,7 @@ function intro:update(timeElapsed)
 			end
 
 			if self.particleSystems[index]:isStopped() and (self.delays[index] == nil or self.delays[index] <= 0) then
-				self.particleSystems[index]:setImage(intro.colors[math.random(#intro.colors)])
+				self.particleSystems[index]:setTexture(intro.colors[math.random(#intro.colors)])
 				self.particleSystems[index]:setPosition(math.random(love.graphics.getWidth()), math.random(love.graphics.getHeight()))
 				self.particleSystems[index]:start()
 				self.delays[index] = math.random(10) * 0.5;
